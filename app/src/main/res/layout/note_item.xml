@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:maxHeight="250dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/note_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            tools:text="Titulo" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="113dp"
+                android:layout_height="wrap_content"
+                android:text="Infectados:"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/text_view_infectados"
+                android:layout_width="85dp"
+                android:layout_height="27dp"
+                android:text="value" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="Mortes: " />
+
+
+            <TextView
+                android:id="@+id/note_item_mortes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="value" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:layout_width="166dp"
+                android:layout_height="wrap_content"
+                android:text="Ultima Atualização:"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/text_view_update"
+                android:layout_width="85dp"
+                android:layout_height="27dp"
+                android:text="value" />
+        </TableRow>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
