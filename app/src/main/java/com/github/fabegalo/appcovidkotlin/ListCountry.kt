@@ -1,13 +1,19 @@
 package com.github.fabegalo.appcovidkotlin
 
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.*
 import java.lang.reflect.Type
+import java.text.DecimalFormat
+import java.text.NumberFormat
+
 
 data class Note(
     var name: String? = null,
@@ -51,21 +57,21 @@ class NoteDeserializer : JsonDeserializer<Note> {
         var totallive = JsonPaises.get("totallive")
         var update = JsonPaises.get("update")
 
-        covid.name = name.toString()
-        covid.total = total.toString()
-        covid.totaldead = totaldead.toString()
-        covid.totallive = totallive.toString()
-        covid.update = update.toString()
+        covid.name = name.asString
+        covid.total = total.asString
+        covid.totaldead = totaldead.asString
+        covid.totallive = totallive.asString
+        covid.update = update.asString
 
         var teste = JsonPaises.get("areas")
         val jsonAreas = teste as JsonArray
 
         for (i in 0 until jsonAreas.size()){
             var indice = jsonAreas[i] as JsonObject
-            val name = indice.get("name").toString()
-            val total = indice.get("total").toString()
-            val totaldead = indice.get("totaldead").toString()
-            val totallive = indice.get("totallive").toString()
+            val name = indice.get("name").asString
+            val total = indice.get("total").asString
+            val totaldead = indice.get("totaldead").asString
+            val totallive = indice.get("totallive").asString
             covid.areas?.add(Area(name, total, totaldead, totallive))
         }
 
@@ -107,7 +113,7 @@ class NoteListAdapter(private val notes: List<Note>, private val context: Contex
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val note = notes[position]
         holder?.let {
-            it.bindView(note)
+            it.bindView(note, context)
         }
     }
 
@@ -122,16 +128,34 @@ class NoteListAdapter(private val notes: List<Note>, private val context: Contex
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bindView(note: Note) {
+        fun bindView(note: Note, c: Context) {
+
+            itemView.setOnClickListener {
+                //setContentView(R.layout.activity_main)
+                println("Bati em ${note.name}")
+
+                val intent = Intent(c, TelaListaPais::class.java)
+                val bundle = Bundle()
+
+                val yourListAsString = Gson().toJson(note.areas)
+                bundle.putString("data", yourListAsString)
+                bundle.putString("title", note.name)
+                intent.putExtras(bundle)
+
+                startActivity(c, intent, null)
+            }
+
             val title =  itemView.findViewById<TextView>(R.id.note_item_title)
             val mortes = itemView.findViewById<TextView>(R.id.note_item_mortes)
             val infectados = itemView.findViewById<TextView>(R.id.text_view_infectados)
             val update = itemView.findViewById<TextView>(R.id.text_view_update)
 
-            title.text = note.name
-            mortes.text = note.totaldead
-            infectados.text = note.total
-            update.text = note.update
+            val formatter: NumberFormat = DecimalFormat("#,###")
+
+            title.setText(note.name)
+            mortes.setText(note.totaldead?.replace("\"", "")?.let { formatter.format(it.toDouble()) })
+            infectados.setText(note.total?.replace("\"", "")?.let { formatter.format(it.toDouble()) })
+            update.setText(note.update)
         }
 
     }

@@ -22,7 +22,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/textView"
@@ -41,8 +41,8 @@
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text="Mortes: " />
+                android:text="Mortes: "
+                android:textSize="20dp" />
 
 
             <TextView
@@ -54,7 +54,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <TextView
                 android:layout_width="166dp"
@@ -64,7 +64,7 @@
 
             <TextView
                 android:id="@+id/text_view_update"
-                android:layout_width="85dp"
+                android:layout_width="186dp"
                 android:layout_height="27dp"
                 android:text="value" />
         </TableRow>
